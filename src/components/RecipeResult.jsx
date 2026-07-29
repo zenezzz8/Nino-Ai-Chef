@@ -13,8 +13,8 @@ function RecipeResult({
 
             <h2 className="text-5xl font-bold text-[#345C9A] mb-4">
               {language === "eng"
-                ? "Your ai chef"
-                : "Chef ai mu"
+                ? "Nino Your ai chef"
+                : "Nino Chef ai mu"
               }
             </h2>
 

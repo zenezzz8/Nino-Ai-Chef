@@ -8,7 +8,7 @@ function Header({
             <div className="mx-auto w-[95%]">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold">Chef</h1>
+                        <h1 className="text-3xl font-bold">Nino</h1>
                     </div>
 
                     <div className="font-bold">
