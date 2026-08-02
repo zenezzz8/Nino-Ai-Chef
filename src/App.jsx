@@ -88,6 +88,7 @@ function App() {
 
         setRecipe(FullRecipe);
 
+      // error
       } catch (error) {
         console.error(error);
 
@@ -96,6 +97,7 @@ function App() {
             "Terjadi kesalahan saat mengambil resep.",
         });
 
+      // finish
       } finally {
         setLoading(false);
       }

@@ -104,7 +104,7 @@ function RecipeResult({
               {recipe.recipeName}
             </h3>
 
-            <div className="w-[99%] h-0.5 mx-auto rounded-full m-2"></div>
+            <div className="w-full h-0.2 mx-auto border border-blue-100 rounded-full my-2"></div>
 
             {/* header */}
             <div className="flex">
@@ -198,7 +198,7 @@ function RecipeResult({
               <iframe
                 src={recipe.youtube}
                 title="Tutorial Memasak"
-                className="w-full h-[400px] rounded-xl"
+                className="w-full aspect-video rounded-xl"
                 allowFullScreen
               />
             </div>
