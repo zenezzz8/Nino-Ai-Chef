@@ -4,7 +4,7 @@ function Header({
 }) {
     
     return (
-        <div className="fixed top-0 left-0 right-0 py-2 bg-gradient-to-b from-white via-white/100 to-transparent">
+        <div className="fixed top-0 left-0 right-0 py-2 bg-gradient-to-b from-white via-white/100 to-transparent z-50">
             <div className="mx-auto w-[95%]">
                 <div className="flex items-center justify-between text-3xl font-bold">
                     <h1>Nino</h1>
