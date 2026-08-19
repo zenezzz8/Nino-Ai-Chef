@@ -4,12 +4,47 @@ const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_AI_APIKEY,
 });
 
-export async function generateRecipe(ingredients) {
+export async function generateRecipe({ingredients, mode}) {
 
- const prompt = `
+    let modeInstruction = "";
+
+    if (mode === "normal") {
+        modeInstruction = `
+        Buat resep makanan secara normal.
+        `;
+    } 
+    else if (mode === "child") {
+        modeInstruction = `
+        Buat resep yang cocok untuk anak-anak.
+
+        Perhatikan:
+        - Gunakan rasa yang ringan.
+        - Jangan gunakan makanan yang terlalu pedas.
+        - Buat makanan yang mudah dimakan anak.
+        - Gunakan bahan yang umum dan sesuai untuk anak.
+        - Tambahkan rentang usia yang cocok.
+        `;
+    } 
+    else if (mode === "calorie") {
+        modeInstruction = `
+        Buat resep dengan memperhatikan jumlah kalori.
+
+        Perhatikan:
+        - Gunakan kalori yang terkontrol.
+        - Sertakan estimasi kalori per porsi.
+        `;
+    }
+
+    const prompt = `
         Kamu adalah Chef AI.
 
-        ATURAN WAJIB:
+        Mode: 
+        ${mode}
+
+        Instruksi Mode:
+        ${modeInstruction}
+
+        Aturan wajib:
             1. Hanya boleh menjawab tentang resep makanan dan memasak.
 
             2. Jika input bukan bahan makanan,
@@ -34,7 +69,7 @@ export async function generateRecipe(ingredients) {
 
             6. Cooking time hanya boleh diisi dengan waktu saja
 
-            Balas HANYA JSON VALID.
+            Balas Hanya JSON Valid.
             Jangan gunakan markdown.
             Jangan gunakan \`\`\`.
             Jangan gunakan penjelasan tambahan.
