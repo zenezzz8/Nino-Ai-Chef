@@ -19,7 +19,7 @@ function App() {
       {/* route */}
       <Routes>
         <Route path="/chat" element={<Home language={language}/>} />
-        <Route path="/" element={<Landing/>} />
+        <Route path="/" element={<Landing language={language}/>} />
       </Routes>
     </BrowserRouter>
   );

@@ -133,6 +133,18 @@ function RecipeResult({
 
                   {recipe.difficulty}
                 </div>
+
+                {/* calorie */}
+                <div className="flex flex-col text-lg">
+                  <span className="font-bold text-2xl text-[#345C9A]">
+                    {language === "eng"
+                      ? "Calorie"
+                      : "Kalori"
+                    } :
+                  </span>
+
+                  {recipe.totalCalorie}
+                </div>
               </div>
 
               {/* image */}

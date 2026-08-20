@@ -69,6 +69,8 @@ export async function generateRecipe({ingredients, mode}) {
 
             6. Cooking time hanya boleh diisi dengan waktu saja
 
+            7. totalCarolie hanya boleh diisi berapa banyak calorie dan dalam bahasa ingris
+
             Balas Hanya JSON Valid.
             Jangan gunakan markdown.
             Jangan gunakan \`\`\`.
@@ -79,6 +81,7 @@ export async function generateRecipe({ingredients, mode}) {
                 "recipeName": "",
                 "cookingTime": "",
                 "difficulty": "",
+                "totalCalorie": "",
                 "ingredients": [],
                 "steps": [],
             }
