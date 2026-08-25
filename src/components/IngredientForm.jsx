@@ -30,6 +30,12 @@ function IngredientForm({
 
   return (
     <div className="fixed max-w-3xl mx-auto bottom-4 left-0 right-0">
+        {error && (
+          <p className="text-red-500 mt-2 text-sm text-center">
+            {error}
+          </p>
+        )}
+
         <div className="relative items-center justify-center border border-gray-100 bg-white rounded-4xl shadow-2xl flex p-1">
 
           <button
@@ -123,14 +129,6 @@ function IngredientForm({
             ↑
           </button>
         </div>
-
-        {error && (
-          <p className="text-red-500 mt-2 text-sm">
-            {error}
-          </p>
-        )}
-        
-
     </div>
   );
 }
