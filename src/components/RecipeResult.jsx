@@ -6,6 +6,7 @@ function RecipeResult({
 
   return (
     <div className="w-full max-w-3xl mx-auto">
+     
       {/* default */}
       {!loading && !recipe && (
         <div className="min-h-screen flex items-center justify-center">
@@ -33,11 +34,13 @@ function RecipeResult({
 
       {/* error */}
       {!loading && recipe?.error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-600">
+       <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-lg w-full text-center">
+          <p className="text-red-600 text-lg font-medium">
             {recipe.error}
           </p>
         </div>
+      </div>
       )}
 
       {/* loading */}
