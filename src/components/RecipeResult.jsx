@@ -2,6 +2,9 @@ function RecipeResult({
   recipe, 
   loading,
   language,
+  saveStatus,
+  onSaveYes,
+  onSaveNo,
 }) {
 
   return (
@@ -36,7 +39,6 @@ function RecipeResult({
       {!loading && recipe?.error && (
         <div className="absolute top-12 left-0 right-0 flex items-center justify-center">
           <div class="bg-red-100 border border-red-400 text-red-700 px-5 py-3 rounded relative" role="alert">
-            {/* <strong class="font-bold">Holy smokes!</strong> */}
             <span class="block sm:inline">{recipe.error}</span>
           </div>
         </div>
@@ -88,9 +90,6 @@ function RecipeResult({
                 <div className="h-4 w-1/6 bg-gray-300 rounded"></div>
                 <div className="h-4 w-3/4 bg-gray-300 rounded"></div>
               </div>
-
-              {/* Video */}
-              {/* <div className="w-full h-80 bg-gray-300 rounded-xl"></div> */}
             </div>
           </div>
         </div>
@@ -215,6 +214,51 @@ function RecipeResult({
                 className="w-full aspect-video rounded-xl"
                 allowFullScreen
               />
+            </div>
+
+            {/* quesioner */}
+            <div className="mt-10 p-6 bg-blue-50 rounded-2xl text-center">
+              {saveStatus === "idle" && (
+                <>
+                  <p className="text-lg font-semibold text-[#345C9A] mb-4">
+                    {language === "eng"
+                      ? "Do you want to cook this recipe?"
+                      : "Apakah kamu ingin memasak resep ini?"}
+                  </p>
+                  <div className="flex gap-3 justify-center">
+                    <button
+                      onClick={onSaveYes}
+                      className="rounded-xl bg-[#345C9A] px-6 py-2.5 font-semibold text-white hover:bg-[#294B80] transition"
+                    >
+                      {language === "eng" ? "Yes" : "Ya"}
+                    </button>
+                    <button
+                      onClick={onSaveNo}
+                      className="rounded-xl bg-white border border-gray-300 px-6 py-2.5 font-semibold text-gray-700 hover:bg-gray-100 transition"
+                    >
+                      {language === "eng" ? "No" : "Tidak"}
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {saveStatus === "saving" && (
+                <p className="text-gray-500">
+                  {language === "eng" ? "Saving..." : "Menyimpan..."}
+                </p>
+              )}
+
+              {saveStatus === "saved" && (
+                <p className="text-green-600 font-semibold">
+                  {language === "eng" ? "Thanks! Saved." : "Terima kasih! Tersimpan."}
+                </p>
+              )}
+
+              {saveStatus === "declined" && (
+                <p className="text-gray-500">
+                  {language === "eng" ? "Okay, maybe next time." : "Oke, mungkin lain kali."}
+                </p>
+              )}
             </div>
           </div>    
       )}

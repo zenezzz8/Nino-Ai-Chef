@@ -6,6 +6,7 @@ import RecipeResult from "../components/RecipeResult";
 import {generateRecipe} from "../service/gemini";
 import { GetImage } from "../service/image";
 import { GetVideo } from "../service/youtube";
+import { supabase } from "../service/supabase";
 
 function Chat({language}){
     const [ingredients, setIngredients] = useState("");
@@ -16,6 +17,8 @@ function Chat({language}){
     const [mode, setMode] = useState("normal");
 
     const [error, setError] = useState("");
+
+    const [saveStatus, setSaveStatus] = useState("idle");
 
     const handleSearch = async () => {
         const cleanedIngredients = ingredients.trim();
@@ -28,6 +31,7 @@ function Chat({language}){
         }
 
         setError("");
+        setSaveStatus("idle");
 
         try {
             setLoading(true);
@@ -39,8 +43,6 @@ function Chat({language}){
                 mode: mode,
             });
 
-            // setRecipe(result);
-
             // youtube
             const YTVideo =
             await GetVideo(
@@ -49,6 +51,7 @@ function Chat({language}){
 
             let youtubeUrl = "";
 
+            // check yt exists
             if (
             YTVideo.items &&
             YTVideo.items.length > 0
@@ -59,10 +62,10 @@ function Chat({language}){
             youtubeUrl =
                 `https://www.youtube.com/embed/${videoId}`;
             }
-
-            // img
+            
             let imageUrl = "";
 
+            // img
             const imageData = await GetImage(
             result.recipeName
             );
@@ -99,6 +102,35 @@ function Chat({language}){
         }
     };
 
+    // handle yes
+    const handleSaveYes = async () => {
+        if (!recipe || recipe.error) return;
+
+        setSaveStatus("saving");
+
+        try {
+            const { error: saveError } = await supabase
+                .from("recipe_searches")
+                .insert({
+                    recipe_name: recipe.recipeName,
+                    image_url: recipe.image,
+                });
+
+            if (saveError) throw saveError;
+
+            setSaveStatus("saved");
+        } catch (err) {
+            console.error(err);
+            setSaveStatus("idle");
+        }
+    };
+
+    // handle no
+    const handleSaveNo = () => {
+        setSaveStatus("declined");
+    };
+
+
     return (
         <div className="w-full h-full min-h-[500px]">     
         
@@ -106,6 +138,9 @@ function Chat({language}){
                 recipe= {recipe}
                 loading= {loading}
                 language= {language}
+                saveStatus={saveStatus}
+                onSaveYes={handleSaveYes}
+                onSaveNo={handleSaveNo}
             />
 
             {/*  */}
