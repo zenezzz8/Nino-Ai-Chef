@@ -1,3 +1,9 @@
+import { FaClipboardList } from "react-icons/fa";
+import { LuCookingPot } from "react-icons/lu";
+import { IoFastFood } from "react-icons/io5";
+import { GiCook } from "react-icons/gi";
+import { IoMdTime } from "react-icons/io";
+
 function RecipeResult({ 
   recipe, 
   loading,
@@ -99,125 +105,120 @@ function RecipeResult({
       {!loading &&
         recipe &&
         !recipe.error && (
-          <div className="mt-15 mb-30">
+          <div className="mt-10 mb-24 animate-fade-in">
+
             {/* name */}
-            <h3 className="text-4xl font-bold text-[#345C9A] mb-2">
+            <h3 className="text-4xl md:text-5xl font-extrabold text-[#345C9A] mb-2 leading-tight">
               {recipe.recipeName}
             </h3>
 
-            <div className="w-full h-0.2 mx-auto border border-blue-100 rounded-full my-2"></div>
+            <div className="w-full h-px bg-blue-100 rounded-full my-4"></div>
 
             {/* header */}
-            <div className="flex">
-              <div className="flex flex-col gap-3 mb-6 flex-wrap w-[50%]">
+            <div className="flex flex-col-reverse md:flex-row gap-8 mb-6">
+              
+              {/* left */}
+              <div className="flex flex-col gap-3 w-full md:w-1/2 justify-center">
                 {/* time */}
-                <div className="flex flex-col text-lg">
-                  <span className="font-bold text-2xl text-[#345C9A]">
-                    {language === "eng"
-                      ? "Cooking Time"
-                      : "Waktu Memasak"
-                    } :
-                  </span>
-                  
-                  {recipe.cookingTime}
+                <div className="flex items-center gap-2 bg-blue-50 text-[#345C9A] px-4 py-2.5 rounded-2xl font-medium border border-blue-100 w-fit">
+                  <IoMdTime className="w-5 h-5"/>
+                  <span className="font-bold">{language === "eng" ? "Cooking Time" : "Waktu Memasak"}:</span>
+                  <span>{recipe.cookingTime}</span>
                 </div>
-                
 
                 {/* difficulty */}
-                <div className="flex flex-col text-lg">
-                  <span className="font-bold text-2xl text-[#345C9A]">
-                    {language === "eng"
-                      ? "Difficulty"
-                      : "Kesulitan"
-                    } :
-                  </span>
-
-                  {recipe.difficulty}
+                <div className="flex items-center gap-2 bg-orange-50 text-orange-600 px-4 py-2.5 rounded-2xl font-medium border border-orange-100 w-fit">
+                  <GiCook className="w-5 h-5"/>
+                  <span className="font-bold">{language === "eng" ? "Difficulty" : "Kesulitan"}:</span>
+                  <span>{recipe.difficulty}</span>
                 </div>
 
                 {/* calorie */}
-                <div className="flex flex-col text-lg">
-                  <span className="font-bold text-2xl text-[#345C9A]">
-                    {language === "eng"
-                      ? "Calorie"
-                      : "Kalori"
-                    } :
-                  </span>
-
-                  {recipe.totalCalorie}
+                <div className="flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2.5 rounded-2xl font-medium border border-green-100 w-fit">
+                  <IoFastFood className="w-5 h-5"/>
+                  <span className="font-bold">{language === "eng" ? "Calorie" : "Kalori"}:</span>
+                  <span>{recipe.totalCalorie}</span>
                 </div>
               </div>
 
-              {/* image */}
-              <div className="w-[50%] flex justify-end">
+              {/* right */}
+              <div className="w-full md:w-1/2 flex justify-end">
                 {recipe.image && (
-                  <img
-                    src={recipe.image}
-                    alt={recipe.recipeName}
-                    className="border border-transparent w-80 h-55 object-cover rounded-2xl overflow-hidden"
-                  />
+                  <div className="relative group w-full">
+                    <img
+                      src={recipe.image}
+                      alt={recipe.recipeName}
+                      className="relative w-full h-55 md:h-64 object-cover rounded-[2rem] shadow-lg border-4 border-white"
+                    />
+                  </div>
                 )}
               </div>
             </div>
-              
-            <div className="w-[99%] h-0.5 mx-auto rounded-full m-2"></div>
+
+            <div className="w-full h-px bg-blue-100 rounded-full my-4"></div>
 
             {/* body */}
-            <div>
+            <div className="flex flex-col gap-8">
 
               {/* ingredients */}
-              <div className="mb-6">
-                <h4 className="font-bold text-2xl text-[#345C9A] mb-2">
-                  {language === "eng"
-                    ? "Ingredients"
-                    : "Bahan-bahan"
-                  }
-                </h4>
+              <div className="bg-white p-6 md:p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2.5 bg-blue-50 rounded-xl text-[#345C9A]">
+                    <FaClipboardList className="w-6 h-6"/>
+                  </div>
+                  <h4 className="font-bold text-2xl text-[#345C9A]">
+                    {language === "eng" ? "Ingredients" : "Bahan-bahan"}
+                  </h4>
+                </div>
 
-                <ul className="list-disc pl-5 text-lg">
-                  {recipe.ingredients?.map(
-                    (item, index) => (
-                      <li key={index}>
-                        {item}
-                      </li>
-                    )
-                  )}
+                <ul className="space-y-3 text-gray-600">
+                  {recipe.ingredients?.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#F4D03F] mt-2.5 flex-shrink-0"></span>
+                      <span className="text-lg leading-relaxed">{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               {/* step */}
-              <div>
-                <h4 className="font-bold text-2xl text-[#345C9A] mb-2">
-                  {language === "eng"
-                    ? "Cook Steps"
-                    : "Langkah Memasak"
-                  }
-                </h4>
+              <div className="bg-white p-6 md:p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2.5 bg-blue-50 rounded-xl text-[#345C9A]">
+                    <LuCookingPot className="w-6 h-6"/>
+                  </div>
+                  <h4 className="font-bold text-2xl text-[#345C9A]">
+                    {language === "eng" ? "Cook Steps" : "Langkah Memasak"}
+                  </h4>
+                </div>
 
-                <ol className="list-decimal pl-5 space-y-2 text-lg">
-                  {recipe.steps?.map(
-                    (step, index) => (
-                      <li key={index}>
-                        {step}
-                      </li>
-                    )
-                  )}
-                </ol>
+                <div className="space-y-6 text-gray-600">
+                  {recipe.steps?.map((step, index) => (
+                    <div key={index} className="flex gap-4">
+                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-[#345C9A] font-bold text-sm border border-blue-100">
+                        {index + 1}
+                      </div>
+                      <p className="text-lg leading-relaxed pt-0.5">{step}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* video */}
-            <div className="mt-10">
-              <iframe
-                src={recipe.youtube}
-                title="Tutorial Memasak"
-                className="w-full aspect-video rounded-xl"
-                allowFullScreen
-              />
-            </div>
+            {recipe.youtube && (
+              <div className="mt-8 bg-white p-4 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+                <iframe
+                  src={recipe.youtube}
+                  title="Tutorial Memasak"
+                  className="w-full aspect-video rounded-2xl"
+                  allowFullScreen
+                />
+              </div>
+            )}
 
             {/* quesioner */}
-            <div className="mt-10 p-6 bg-blue-50 rounded-2xl text-center">
+            <div className="mt-12 p-6 bg-blue-50 rounded-2xl text-center border border-blue-100">
               {saveStatus === "idle" && (
                 <>
                   <p className="text-lg font-semibold text-[#345C9A] mb-4">
@@ -260,7 +261,7 @@ function RecipeResult({
                 </p>
               )}
             </div>
-          </div>    
+          </div>
       )}
     </div>
   );

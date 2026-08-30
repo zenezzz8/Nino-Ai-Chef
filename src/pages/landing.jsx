@@ -174,7 +174,7 @@ function Landing({language}) {
             </section>
 
             {/* popular */}
-            <section id="popular" className="min-h-lvh pt-10 scroll-mt-10">
+            <section id="popular" className="py-16 scroll-mt-10">
                 <div className="mx-auto w-full max-w-7xl px-5">
                     {/* Header Section */}
                     <div className="text-center mb-12">
@@ -219,39 +219,55 @@ function Landing({language}) {
                         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                             {popular.slice(0, 5).map((item, index) => (
                                 <div key={index}
-                                    className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 bg-white p-3 
-                                    shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-[#345C9A]/20 hover:shadow-xl"
+                                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white 
+                                    shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-[#345C9A]/30 hover:shadow-2xl hover:shadow-[#345C9A]/10"
                                 >
-                                    <div>
-                                        {/* Image Container with Zoom Effect */}
-                                        <div className="relative h-36 w-full overflow-hidden rounded-xl bg-gray-100">
-                                            {item.image_url ? (
-                                                <img
-                                                    src={item.image_url}
-                                                    alt={item.recipe_name}
-                                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                            ) : (
-                                                <div className="flex h-full w-full items-center justify-center text-gray-300">
-                                                    <IoFastFood className="text-4xl" />
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Title */}
-                                        <h3 className="mt-3 font-bold text-gray-800 text-sm line-clamp-2 transition-colors group-hover:text-[#345C9A]">
-                                            {item.recipe_name}
-                                        </h3>
+                                    {/* Ranking Badge */}
+                                    <div className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full 
+                                        bg-white/90 text-sm font-bold text-[#345C9A] shadow-md backdrop-blur-sm">
+                                        #{index + 1}
                                     </div>
 
-                                    {/* Footer Info */}
-                                    <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-2.5 text-xs text-gray-400">
-                                        <span>
-                                            {item.total || 0} {language === "eng" ? "searches" : "kali dicari"}
-                                        </span>
-                                        <span className="font-semibold text-[#345C9A] opacity-0 transition-opacity group-hover:opacity-100">
-                                            →
-                                        </span>
+                                    {/* Image Container with Gradient Overlay */}
+                                    <div className="relative h-40 w-full overflow-hidden bg-gray-100">
+                                        {item.image_url ? (
+                                            <img
+                                                src={item.image_url}
+                                                alt={item.recipe_name}
+                                                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                                            />
+                                        ) : (
+                                            <div className="flex h-full w-full items-center justify-center text-gray-300">
+                                                <IoFastFood className="text-4xl" />
+                                            </div>
+                                        )}
+
+                                        {/* Gradient overlay bawah gambar */}
+                                        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 to-transparent" />
+
+                                        {/* Trending badge */}
+                                        <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-white/95 
+                                            px-2.5 py-1 text-[10px] font-bold text-[#345C9A] shadow-sm">
+                                            🔥 {item.total || 0}
+                                        </div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex flex-1 flex-col justify-between p-4">
+                                        <h3 className="font-bold text-gray-800 text-sm leading-snug line-clamp-2 transition-colors group-hover:text-[#345C9A]">
+                                            {item.recipe_name}
+                                        </h3>
+
+                                        <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3 text-xs text-gray-400">
+                                            <span className="font-medium">
+                                                {item.total || 0} {language === "eng" ? "searches" : "kali dicari"}
+                                            </span>
+                                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#345C9A]/0 
+                                                font-semibold text-[#345C9A] opacity-0 transition-all duration-300 
+                                                group-hover:bg-[#345C9A]/10 group-hover:opacity-100">
+                                                →
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
